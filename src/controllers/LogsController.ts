@@ -2,8 +2,15 @@ import LogsModel from '../models/LogsModel'
 import { Handler } from 'express'
 
 export const getAll: Handler = async (req, res) => {
-  const logs = await LogsModel.find()
-  res.send(logs)
+  const query = {}
+  const [results, count] = await Promise.all([
+    LogsModel.find(query).skip(req.pagination.skip).limit(req.pagination.size).exec(),
+    LogsModel.countDocuments(query).exec()
+  ])
+  res.send({
+    count,
+    results
+  })
 }
 
 export const getOne: Handler = async (req, res) => {
