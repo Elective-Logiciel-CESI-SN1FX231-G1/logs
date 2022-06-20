@@ -16,7 +16,6 @@ export const getAll: Handler = async (req, res) => {
 export const getOne: Handler = async (req, res) => {
   const type = req.params.type
   const date = new Date(Date.parse(req.params.date))
-  console.log(date)
   const logs = await LogsModel.findOne({ type, date })
   if (logs) res.send(logs.logs)
   else res.sendStatus(404)
