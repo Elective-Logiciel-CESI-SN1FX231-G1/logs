@@ -6,6 +6,7 @@ import LogsRouter from './routes/LogsRouter'
 const app = express()
 
 app.use(auth)
+app.use('/api', express.static('apidoc'))
 app.use('/api/logs', LogsRouter)
 
 export default app
